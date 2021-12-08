@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+// criando recurso pra chamar todas os Paises
 @RestController
 @RequestMapping("/countries")
 public class CountryResource {
@@ -22,18 +23,20 @@ public class CountryResource {
         this.repository = repository;
     }
 
+    // Get pra chamar todas os Paises
     @GetMapping()
     public Page<Country> countries(Pageable page) {
 
         return repository.findAll(page);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Country> getOne(@PathVariable Long id) {
-        Optional <Country> optional = repository.findById(id);
+    //Get para chamar os paises por ID
+    @GetMapping("/{name}")
+    public ResponseEntity<Country> getCountry(@PathVariable String name) {
+        Optional <Country> optionalCountry = repository.findByName(name);
 
-        if (optional.isPresent()) {
-            return ResponseEntity.ok().body(optional.get());
+        if (optionalCountry.isPresent()) {
+            return ResponseEntity.ok().body(optionalCountry.get());
         }else {
             return ResponseEntity.notFound().build();
         }

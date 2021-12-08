@@ -35,3 +35,4 @@ public class DistanceService {
         return cityRespository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 }
+
